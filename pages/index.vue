@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions } from "vuex";
 import { shuffleArray } from "../utils/Functions";
 import CardsContainer from "../components/cards/container";
 

@@ -10,7 +10,6 @@ export const mutations = {
 
 export const actions = {
   async setLoading({ commit }, payload) {
-    console.log("PAGE SET LOADING", payload);
     await commit("setLoading", payload);
   }
 };
