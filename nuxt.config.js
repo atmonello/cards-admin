@@ -42,7 +42,8 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
     // Doc: https://github.com/nuxt-community/dotenv-module
-    "@nuxtjs/dotenv"
+    "@nuxtjs/dotenv",
+    "@nuxtjs/style-resources"
   ],
   /*
    ** Axios module configuration
@@ -61,7 +62,7 @@ module.exports = {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: colors.grey.darken1,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -71,6 +72,9 @@ module.exports = {
         }
       }
     }
+  },
+  styleResources: {
+    scss: ["~assets/style/*.scss"]
   }
   // /*
   //  ** Build configuration
