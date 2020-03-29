@@ -5,13 +5,27 @@ import {
 } from "./page";
 
 export const state = () => ({
-  ...PageState
+  ...PageState,
+  logged: false,
+  user: {}
 });
 
 export const mutations = {
-  ...PageMutations
+  ...PageMutations,
+  setLogged(state, update) {
+    state.logged = update;
+  },
+  setUser(state, update) {
+    state.user = update;
+  }
 };
 
 export const actions = {
-  ...PageActions
+  ...PageActions,
+  setLogged({ commit }, update) {
+    commit("setLogged", update);
+  },
+  setUser({ commit }, update) {
+    commit("setUser", update);
+  }
 };
