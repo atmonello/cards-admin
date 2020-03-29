@@ -26,6 +26,14 @@ export const actions = {
     commit("setLogged", update);
   },
   setUser({ commit }, update) {
+    const { token } = update;
+    if (token) this.$cookies.set("mnl-user-token", token);
     commit("setUser", update);
+  }
+};
+
+export const getters = {
+  getLogged(state) {
+    return state.logged;
   }
 };

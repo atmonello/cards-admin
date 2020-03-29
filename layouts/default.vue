@@ -92,6 +92,7 @@ export default {
         this.setLogged(false);
         this.setUser({});
         this.setLoading(false);
+        this.$cookies.remove("mnl-user-token");
       }, 1000);
     }
   }
