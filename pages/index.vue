@@ -37,7 +37,10 @@ export default {
     async refreshCards() {
       this.setLoading(true);
       this.cards = await this.$axios.get("/cards").then((response) => {
-        this.setLoading(false);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => {
+          this.setLoading(false);
+        }, 500);
         return shuffleArray(response.data.message[0]).slice(0, 12);
       });
     }

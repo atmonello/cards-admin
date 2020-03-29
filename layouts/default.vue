@@ -45,15 +45,33 @@
     <v-content class="mnl-cards__wrapper">
       <nuxt />
     </v-content>
+
+    <v-content v-if="loading" class="mnl-cards__loading">
+      <v-container class="fill-height">
+        <v-row>
+          <v-col class="text-center align-center">
+            <h1 class="mnl-cards__loading__title">
+              <v-icon id="icon">mdi-loading</v-icon>CARREGANDO
+            </h1>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
   </v-app>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       drawer: false
     };
+  },
+  computed: {
+    ...mapState("page", {
+      loading: (state) => state.loading
+    })
   }
 };
 </script>
@@ -73,6 +91,37 @@ export default {
 
   &__wrapper {
     background-color: #555;
+  }
+
+  &__loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+
+    &__title {
+      color: #000;
+
+      #icon {
+        color: #000;
+        animation: rotation 0.75s infinite linear;
+        font-size: 40px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
   }
 }
 </style>
