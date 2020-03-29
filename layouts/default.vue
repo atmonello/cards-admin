@@ -8,38 +8,47 @@
       clipped
     >
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <nuxt-link class="mnl-cards__menu__link" to="/login"
-                >Login</nuxt-link
-              >
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-cards</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              <nuxt-link class="mnl-cards__menu__link" to="/cards"
-                >Browse cards</nuxt-link
-              >
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <nuxt-link class="mnl-cards__menu__link" to="/login">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Login</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </nuxt-link>
+        <nuxt-link class="mnl-cards__menu__link" to="/cards">
+          <v-list-item link>
+            <v-list-item-action>
+              <v-icon>mdi-cards</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                Browse cards
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </nuxt-link>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar id="header" app clipped-left class="mnl-cards__header">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
-        <nuxt-link to="/">MNL Cards</nuxt-link>
+      <v-toolbar-title class="mnl-cards__header__title">
+        <nuxt-link to="/"><h1 class="display-2">MNL Cards</h1></nuxt-link>
       </v-toolbar-title>
+      <div
+        v-if="logged"
+        class="mnl-cards__header__user text-center"
+        @click.prevent
+      >
+        <p class="title ma-0">{{ user.firstName }}</p>
+        <v-btn text small color="error" @click.prevent="logout()"
+          ><v-icon class="body-2">mdi-logout</v-icon
+          ><span class="body-1">SAIR</span></v-btn
+        >
+      </div>
     </v-app-bar>
 
     <v-content class="mnl-cards__wrapper">
@@ -61,7 +70,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -71,7 +80,20 @@ export default {
   computed: {
     ...mapState("page", {
       loading: (state) => state.loading
-    })
+    }),
+    ...mapState(["logged", "user"])
+  },
+  methods: {
+    ...mapActions("page", ["setLoading"]),
+    ...mapActions(["setLogged", "setUser"]),
+    logout() {
+      this.setLoading(true);
+      setTimeout(() => {
+        this.setLogged(false);
+        this.setUser({});
+        this.setLoading(false);
+      }, 1000);
+    }
   }
 };
 </script>
@@ -86,6 +108,9 @@ export default {
         color: #fff;
         text-decoration: none;
       }
+    }
+    &__title {
+      flex: 1;
     }
   }
 
