@@ -30,7 +30,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ["~/plugins/jwt"],
   /*
    ** Nuxt.js dev-modules
    */
@@ -43,7 +43,8 @@ module.exports = {
     "@nuxtjs/axios",
     // Doc: https://github.com/nuxt-community/dotenv-module
     "@nuxtjs/dotenv",
-    "@nuxtjs/style-resources"
+    "@nuxtjs/style-resources",
+    "cookie-universal-nuxt"
   ],
   /*
    ** Axios module configuration
@@ -75,14 +76,18 @@ module.exports = {
   },
   styleResources: {
     scss: ["~assets/style/*.scss"]
+  },
+  router: {
+    middleware: ["auth"]
+  },
+  /*
+   ** Build configuration
+   */
+  build: {
+    transpile: ["jsonwebtoken"]
+    /*
+     ** You can extend webpack config here
+     */
+    // extend(config, ctx) {}
   }
-  // /*
-  //  ** Build configuration
-  //  */
-  // build: {
-  //   /*
-  //    ** You can extend webpack config here
-  //    */
-  //   extend(config, ctx) {}
-  // }
 };
