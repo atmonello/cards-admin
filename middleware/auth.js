@@ -8,13 +8,11 @@ export default async ({ app: { store, $cookies, $axios } }) => {
     const { exp, id } = await jwt.decode(token);
 
     if (Date.now() < exp * 1000) {
+      $axios.setHeader("Authorization", `Bearer ${token}`);
+
       const {
         data: { email, firstName }
-      } = await $axios.get("/users?id=" + id, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      } = await $axios.get("/users?id=" + id);
 
       await store.dispatch("setLogged", true);
       await store.dispatch("setUser", {
